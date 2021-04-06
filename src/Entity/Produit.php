@@ -4,9 +4,14 @@ namespace App\Entity;
 
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProduitRepository::class)
+ * @Vich\Uploadable
  */
 class Produit
 {
@@ -16,6 +21,28 @@ class Produit
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="product_image", fileNameProperty="filename")
+     *
+     * @var File
+     * @Assert\Image(
+     *     maxSize = "1024k",
+     *     mimeTypes = {"image/jpeg", "image/png"},
+     *     mimeTypesMessage = "Merci d'importer une image valide!"
+     * )
+     *
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @var string|null
+     */
+    private $filename;
 
     /**
      * @ORM\Column(type="string", length=40)
@@ -38,9 +65,48 @@ class Produit
      */
     private $sousCategorie;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated_at;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @param null|File $imageFile
+     * @return Produit
+     */
+    public function setImageFile(?File $imageFile = null): Produit
+    {
+        $this->imageFile = $imageFile;
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param string|null $filename
+     * @return Produit
+     */
+    public function setFileName(?string $filename): Produit
+    {
+        $this->filename = $filename;
+        return $this;
+    }
+
+    public function getFileName(): ?string
+    {
+        return $this->filename;
     }
 
     public function getName(): ?string
@@ -94,6 +160,18 @@ class Produit
     public function __toString(): string
     {
         return $this->getName();
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
     }
 
 }

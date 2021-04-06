@@ -7,7 +7,11 @@
             {% for produit in produits %}
             <div class="col-3">
                 <div class="card" style="width: 18rem;">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png" class="card-img-top" alt="...">
+                    {% if produit.filename %}
+                        <img src="{{ vich_uploader_asset(produit, 'imageFile' ) | imagine_filter('thumb') }}" class="card-img-top" alt="..." style="width: 100%;height: auto">
+                    {% else %}
+                        <img src="{{ '/images/products/empty.jpg' | imagine_filter('medium') }}" class="card-img-top" alt="..." style="width: 100%;height: auto">
+                    {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ produit.name }}</h5>
                         <a href="{{ path('cart_add', {'id': produit.id}) }}" class="btn btn-primary">Acheter</a>

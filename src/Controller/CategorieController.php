@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Form\Categorie1Type;
+use App\Form\CategorieType;
 use App\Repository\CategorieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +32,7 @@ class CategorieController extends AbstractController
     public function new(Request $request): Response
     {
         $categorie = new Categorie();
-        $form = $this->createForm(Categorie1Type::class, $categorie);
+        $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -63,7 +64,7 @@ class CategorieController extends AbstractController
      */
     public function edit(Request $request, Categorie $categorie): Response
     {
-        $form = $this->createForm(Categorie1Type::class, $categorie);
+        $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
