@@ -1,39 +1,45 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base_admin.html.twig' %}
 
-{% block title %}Produit index{% endblock %}
+{% block title %}Index des Produits{% endblock %}
 
 {% block body %}
-    <h1>Produit index</h1>
+    <div class="row">
+        <h1>Liste des produits</h1>
 
-    <table class="table">
-        <thead>
+        <table class="table">
+            <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Prix</th>
                 <th>Description</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for produit in produits %}
-            <tr>
-                <td>{{ produit.id }}</td>
-                <td>{{ produit.name }}</td>
-                <td>{{ produit.prix }}</td>
-                <td>{{ produit.description }}</td>
-                <td>
-                    <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for produit in produits %}
+                <tr>
+                    <td>{{ produit.id }}</td>
+                    <td>{{ produit.name }}</td>
+                    <td>{{ produit.prix }}</td>
+                    <td>{{ produit.description }}</td>
+                    <td>
+                        <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
+                        <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ path('produit_new') }}">Create new</a>
+        <a href="{{ path('produit_new') }}">Nouveau produit</a>
+
+        {{ knp_pagination_render(produits, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig', {}, {
+            'align': 'center',
+        }) }}
+    </div>
 {% endblock %}

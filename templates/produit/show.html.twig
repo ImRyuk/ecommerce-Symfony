@@ -1,12 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base_admin.html.twig' %}
 
 {% block title %}Produit{% endblock %}
 
 {% block body %}
-    <h1>Produit</h1>
+    <div class="row">
+        <h1 class="text-center">{{ produit.name }}</h1>
 
-    <table class="table">
-        <tbody>
+        <table class="table">
+            <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ produit.id }}</td>
@@ -23,12 +24,23 @@
                 <th>Description</th>
                 <td>{{ produit.description }}</td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        {% if produit.filename %}
+            <h3>Fichier Image du produit : {{ produit.filename }}</h3>
+            <img src="{{ vich_uploader_asset(produit, 'imageFile' ) | imagine_filter('thumb') }}" class="card-img-top" alt="..."
+                 style="width: 100%;height: auto;max-width: 300px;max-height: 250px">
+        {% else %}
+            <h3>Fichier Image du produit : Aucun</h3>
+        {% endif %}
+    </div>
+    <div class="row">
+        <a class="col-4" href="{{ path('produit_index') }}">back to list</a>
 
-    <a href="{{ path('produit_index') }}">back to list</a>
+        <a class="col-4" href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
 
-    <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
-
-    {{ include('produit/_delete_form.html.twig') }}
+        {{ include('produit/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

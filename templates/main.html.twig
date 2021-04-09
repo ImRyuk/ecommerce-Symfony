@@ -10,7 +10,7 @@
                     {% if produit.filename %}
                         <img src="{{ vich_uploader_asset(produit, 'imageFile' ) | imagine_filter('thumb') }}" class="card-img-top" alt="..." style="width: 100%;height: auto">
                     {% else %}
-                        <img src="{{ '/images/products/empty.jpg' | imagine_filter('medium') }}" class="card-img-top" alt="..." style="width: 100%;height: auto">
+                        <img src="{{ '/images/products/empty.jpg' | imagine_filter('thumb') }}" class="card-img-top" alt="..." style="width: 100%;height: auto">
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ produit.name }}</h5>
