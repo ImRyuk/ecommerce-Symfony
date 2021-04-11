@@ -26,7 +26,7 @@ class ProduitController extends AbstractController
         $produits = $paginator->paginate(
             $donnees, //On passe les données
             $request->query->getInt('page',1),// Numéro de la page actuelle, 1 par défaut
-            10 // Nombre de produits par page
+            8 // Nombre de produits par page
         );
         return $this->render('produit/index.html.twig', [
             'produits' => $produits,

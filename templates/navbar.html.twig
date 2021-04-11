@@ -9,15 +9,6 @@
         <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
         </button>
-        <ul class="navbar-nav">
-            <!-- Badge -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('cart') }}">
-                    <span class="badge badge-pill bg-danger">{{ total }}</span>
-                    <span><i class="fas fa-shopping-cart"></i></span>
-                </a>
-            </li>
-        </ul>
         <!-- Collapsible wrapper -->
     </div>
     <!-- Container wrapper -->
@@ -54,10 +45,15 @@
             <!-- Left links -->
 
             <!-- Search form -->
-            <form class="d-flex input-group w-auto">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <ul class="navbar-nav">
+                <!-- Badge -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('cart') }}">
+                        <span class="badge badge-pill bg-danger">{{ total }}</span>
+                        <span><i class="fas fa-shopping-cart"></i></span>
+                    </a>
+                </li>
+            </ul>
         </div>
         <!-- Collapsible wrapper -->
     </div>

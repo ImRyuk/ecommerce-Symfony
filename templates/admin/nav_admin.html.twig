@@ -18,6 +18,12 @@
                 </li>
             </ul>
         </div>
-        <p>bienvenue admin_name</p>
+        {% if app.user %}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('logout') }}">Se déconnecter</a>
+                </li>
+            </ul>
+        {% endif %}
     </nav>
 </div>
